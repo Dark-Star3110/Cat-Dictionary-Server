@@ -6,13 +6,12 @@ import {
   Param,
   Post,
   Put,
-  Req,
   Res,
   UseGuards,
 } from '@nestjs/common';
 import { CatService } from './cat.service';
 import { CreateCat } from './create-cat.dto';
-import { Request, Response } from 'express';
+import { Response } from 'express';
 import { UpdateCat } from './update-cat.dto';
 import { RolesGuard } from '../auth/roles/roles.guard';
 import { CatFind } from './find-cat.dto';
@@ -32,8 +31,7 @@ export class CatController {
   }
 
   @Get()
-  async getCats(@Req() req: Request, @Res() res: Response) {
-    console.log(req.user);
+  async getCats(@Res() res: Response) {
     const result = await this.catService.getAllCat();
     if (!result) {
       res.status(500).send('server error');
